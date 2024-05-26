@@ -37,6 +37,8 @@ def home():
     return render_template('home.html')
 
 # Route to display the new vehicle form
+from flask import redirect, url_for
+
 @app.route('/vehicles/new', methods=['GET'])
 def new_vehicle_form():
     return render_template('new_vehicle_form.html')
@@ -57,11 +59,13 @@ def create_vehicle():
         )
         db.session.add(new_vehicle)
         db.session.commit()
-        return redirect('/vehicles/new')
+        return redirect(url_for('home'))  # Redirect to home.html
     except Exception as e:
         return f"Error creating vehicle: {str(e)}"
 
-# Route to display the new owner form
+
+from flask import redirect, url_for
+
 @app.route('/owners/new', methods=['GET'])
 def new_owner_form():
     return render_template('new_owner_form.html')
@@ -79,9 +83,11 @@ def create_owner():
         )
         db.session.add(new_owner)
         db.session.commit()
-        return redirect('/owners/new')
+        return redirect(url_for('home'))  # Redirect to home.html
     except Exception as e:
         return f"Error creating owner: {str(e)}"
+
+from flask import redirect, url_for
 
 # Route to display the new registration form
 @app.route('/registrations/new', methods=['GET'])
@@ -101,9 +107,10 @@ def create_registration():
         )
         db.session.add(new_registration)
         db.session.commit()
-        return redirect('/registrations/new')
+        return redirect(url_for('home'))  # Redirect to home.html
     except Exception as e:
         return f"Error creating registration: {str(e)}"
+
 
 
 @app.route('/data', methods=['GET'])
@@ -248,6 +255,11 @@ def delete_registration(registration_id):
         return redirect('/data')
     except Exception as e:
         return f"Error deleting registration: {str(e)}"
+
+
+@app.route('/exit', methods=['GET'])
+def exit_data_view():
+    return redirect(url_for('home'))
 
 
 
