@@ -27,8 +27,6 @@ class Owner(db.Model):
 class Registration(db.Model):
     __tablename__ = 'registration'
     registration_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    vehicle_vin = db.Column(db.Integer, db.ForeignKey('vehicle.vehicle_vin'), nullable=False)
-    owner_id = db.Column(db.Integer, db.ForeignKey('owner.owner_id'), nullable=False)
     plate_number = db.Column(db.String(45), nullable=False)
     registration_status = db.Column(db.String(45), nullable=False)
     expiry_date = db.Column(db.Date, nullable=False)
@@ -49,6 +47,7 @@ def create_vehicle():
     try:
         data = request.form
         new_vehicle = Vehicle(
+            vehicle_vin=data['vehicle_vin'],
             make=data['make'],
             model=data['model'],
             year=data['year'],
@@ -73,6 +72,7 @@ def create_owner():
     try:
         data = request.form
         new_owner = Owner(
+            owner_id=data['owner_id'],
             name=data['name'],
             contact_details=data['contact_details'],
             address=data['address']
@@ -94,8 +94,7 @@ def create_registration():
     try:
         data = request.form
         new_registration = Registration(
-            vehicle_vin=data['vehicle_vin'],
-            owner_id=data['owner_id'],
+            registration_id=data['registration_id'],
             plate_number=data['plate_number'],
             registration_status=data['registration_status'],
             expiry_date=data['expiry_date']
