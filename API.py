@@ -59,7 +59,7 @@ def create_vehicle():
         )
         db.session.add(new_vehicle)
         db.session.commit()
-        return redirect(url_for('home'))  # Redirect to home.html
+        return redirect(url_for('new_owner_form'))  # Redirect to home.html
     except Exception as e:
         return f"Error creating vehicle: {str(e)}"
 
@@ -83,7 +83,7 @@ def create_owner():
         )
         db.session.add(new_owner)
         db.session.commit()
-        return redirect(url_for('home'))  # Redirect to home.html
+        return redirect(url_for('new_registration_form'))  # Redirect to home.html
     except Exception as e:
         return f"Error creating owner: {str(e)}"
 
@@ -263,9 +263,5 @@ def exit_data_view():
 
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
