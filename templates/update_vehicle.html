@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Vehicle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Vehicle</h1>
+        <form action="/vehicles/{{ vehicle.vehicle_vin }}" method="POST">
+            <label for="make">Make:</label>
+            <input type="text" name="make" id="make" value="{{ vehicle.make }}"><br>
+
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="{{ vehicle.model }}"><br>
+
+            <label for="year">Year:</label>
+            <input type="text" name="year" id="year" value="{{ vehicle.year }}"><br>
+
+            <label for="color">Color:</label>
+            <input type="text" name="color" id="color" value="{{ vehicle.color }}"><br>
+
+            <label for="engine_type">Engine Type:</label>
+            <input type="text" name="engine_type" id="engine_type" value="{{ vehicle.engine_type }}"><br>
+
+            <label for="plate_type">Plate Type:</label>
+            <input type="text" name="plate_type" id="plate_type" value="{{ vehicle.plate_type }}"><br>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

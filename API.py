@@ -118,5 +118,142 @@ def show_data():
         return f"Error fetching data: {str(e)}"
 
 
+
+@app.route('/vehicles/<int:vehicle_vin>/update', methods=['GET'])
+def update_vehicle_form(vehicle_vin):
+    vehicle = Vehicle.query.get(vehicle_vin)
+    return render_template('update_vehicle.html', vehicle=vehicle)
+
+# Route to handle updating a vehicle
+@app.route('/vehicles/<int:vehicle_vin>', methods=['POST'])
+def update_vehicle(vehicle_vin):
+    try:
+        vehicle = Vehicle.query.get(vehicle_vin)
+        data = request.form
+        vehicle.make = data['make']
+        vehicle.model = data['model']
+        vehicle.year = data['year']
+        vehicle.color = data['color']
+        vehicle.engine_type = data['engine_type']
+        vehicle.plate_type = data['plate_type']
+        db.session.commit()
+        return redirect('/data')
+    except Exception as e:
+        return f"Error updating vehicle: {str(e)}"
+
+# Route to display the delete vehicle confirmation page
+@app.route('/vehicles/<int:vehicle_vin>/delete', methods=['GET'])
+def delete_vehicle_confirm(vehicle_vin):
+    vehicle = Vehicle.query.get(vehicle_vin)
+    return render_template('delete_vehicle.html', vehicle=vehicle)
+
+@app.route('/vehicles/<int:vehicle_vin>/delete', methods=['POST'])
+def delete_vehicle(vehicle_vin):
+    try:
+        vehicle = Vehicle.query.get(vehicle_vin)
+        if vehicle is None:
+            return "Vehicle not found.", 404
+
+        db.session.delete(vehicle)
+        db.session.commit()
+        return redirect('/data')
+    except Exception as e:
+        return f"Error deleting vehicle: {str(e)}"
+
+
+
+
+@app.route('/owners/<int:owner_id>/update', methods=['GET', 'POST'])
+def update_owner(owner_id):
+    try:
+        owner = Owner.query.get(owner_id)
+        if request.method == 'POST':
+            data = request.form
+            owner.name = data['name']
+            owner.contact_details = data['contact_details']
+            owner.address = data['address']
+            # Update other attributes similarly
+            db.session.commit()
+            return redirect('/data')  # Redirect to owner list page
+        else:
+            return render_template('update_owner.html', owner=owner)
+    except Exception as e:
+        return f"Error updating owner: {str(e)}"
+
+
+
+@app.route('/owners/<int:owner_id>/delete', methods=['GET'])
+def delete_owner_confirm(owner_id):
+    owner = Owner.query.get(owner_id)
+    return render_template('delete_owner.html', owner=owner)
+
+
+
+@app.route('/owners/<int:owner_id>/delete', methods=['POST'])
+def delete_owner(owner_id):
+    try:
+        owner = Owner.query.get(owner_id)
+        if owner is None:
+            return "Owner not found.", 404
+
+        db.session.delete(owner)
+        db.session.commit()
+        return redirect('/data')
+    except Exception as e:
+        return f"Error deleting owner: {str(e)}"
+
+
+
+
+
+
+
+@app.route('/registrations/<int:registration_id>/update', methods=['GET'])
+def update_registration_form(registration_id):
+    registration = Registration.query.get(registration_id)
+    return render_template('update_registration.html', registration=registration)
+
+@app.route('/registrations/<int:registration_id>/update', methods=['POST'])
+def update_registration(registration_id):
+    try:
+        registration = Registration.query.get(registration_id)
+        if registration:
+            data = request.form
+            registration.plate_number = data.get('plate_number', registration.plate_number)
+            registration.registration_status = data.get('registration_status', registration.registration_status)
+            registration.expiry_date = data.get('expiry_date', registration.expiry_date)
+            # Update other attributes similarly
+            db.session.commit()
+            return redirect('/data')
+        else:
+            return "Registration not found.", 404
+    except Exception as e:
+        return f"Error updating registration: {str(e)}"
+
+
+@app.route('/registrations/<int:registration_id>/delete', methods=['GET'])
+def delete_registration_confirm(registration_id):
+    registration = Registration.query.get(registration_id)
+    return render_template('delete_registration.html', registration=registration)
+
+@app.route('/registrations/<int:registration_id>/delete', methods=['POST'])
+def delete_registration(registration_id):
+    try:
+        registration = Registration.query.get(registration_id)
+        if registration is None:
+            return "Registration not found.", 404
+
+        db.session.delete(registration)
+        db.session.commit()
+        return redirect('/data')
+    except Exception as e:
+        return f"Error deleting registration: {str(e)}"
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Owner</title>
+</head>
+<body>
+    <h1>Delete Owner</h1>
+    <p>Are you sure you want to delete {{ owner.name }}?</p>
+    <form action="/owners/{{ owner.id }}/delete" method="POST">
+        <button type="submit">Delete</button>
+        <a href="/owners">Cancel</a>
+    </form>
+</body>
+</html>

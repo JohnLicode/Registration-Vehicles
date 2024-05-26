@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Registration</h1>
+        <form action="/registrations/{{ registration.registration_id }}/update" method="POST">
+            <label for="plate_number">Plate Number:</label>
+            <input type="text" name="plate_number" id="plate_number" value="{{ registration.plate_number }}"><br>
+            <label for="registration_status">Registration Status:</label>
+            <input type="text" name="registration_status" id="registration_status" value="{{ registration.registration_status }}"><br>
+            <label for="expiry_date">Expiry Date:</label><br>
+            <input type="date" id="expiry_date" name="expiry_date" value="{{ registration.expiry_date }}" required><br><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>
