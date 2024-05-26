@@ -8,9 +8,11 @@ This project is a web-based application for managing vehicle registrations, owne
 
 ## Prerequisites
 
+
 - Python 3.x
-- MySQL
+- MySQL workbench
 - pip (Python package installer)
+- pycharm
 
 ## Installation
 
@@ -32,15 +34,24 @@ This project is a web-based application for managing vehicle registrations, owne
 
     ```bash
     pip install -r requirements.txt
+    pip install flask
+    pip install Flask SQLAlchemy
     ```
 
 4. **Set up the database:**
 
     Create a MySQL database or import it from my repo named `registration vehicles` and configure the connection details in the `app.config['SQLALCHEMY_DATABASE_URI']` line of `app.py`.
 
+   ```py
+      app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/registration vehicles'
+   ```
+
     ```sql
     CREATE DATABASE registration_vehicles;
+    
     ```
+
+    
 
 5. **Run the Flask application:**
 
@@ -117,7 +128,4 @@ This project is a web-based application for managing vehicle registrations, owne
 
 - To return to the home page from the data view, navigate to `http://127.0.0.1:5000/exit`.
 
-## Error Handling
-
-If an error occurs during any operation (creation, update, or deletion), an error message will be displayed on the screen.
 
